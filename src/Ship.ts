@@ -7,13 +7,23 @@ class Ship {
   hitCoords: number[][] = []
   isHit = false
   isSunk = false
-  direction = directions.notSet
+  isPlaced = false
+  direction = directions.x
 
-  constructor() {}
-
-  setSpanAndDirection(span: number, direction: directions) {
+  constructor(span: number) {
     this.span = span
+  }
+
+  setDirection(direction: directions) {
     this.direction = direction
+  }
+
+  switchDirection() {
+    if (this.direction == directions.x) {
+      this.direction = directions.y
+    } else {
+      this.direction = directions.x
+    }
   }
 }
 

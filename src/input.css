@@ -9,3 +9,15 @@
 .tile:hover {
   background-color: #64748b;
 }
+
+.placeHoverLegal {
+  background-color: blue;
+}
+
+.placeHoverIllegal {
+  background-color: red;
+}
+
+.shipPlaced {
+  background-color: forestgreen;
+}

@@ -3,40 +3,58 @@ import { Tile } from "./Tile"
 import { directions } from "./directions"
 
 class Player {
-  name = ""
   turn = false
   board: Tile[][] = []
   ships: Ship[] = []
   isLost = false
 
-  constructor(name: string) {
-    this.name = name
-
+  constructor() {
     for (let i = 0; i < 10; i++) {
       this.board.push([])
       for (let j = 0; j < 10; j++) {
         this.board[i].push(new Tile(i, j))
       }
     }
+
+    this.ships.push(new Ship(5))
+    this.ships.push(new Ship(4))
+    this.ships.push(new Ship(3))
+    this.ships.push(new Ship(3))
+    this.ships.push(new Ship(2))
   }
 
   placeShip(ship: Ship, row: number, col: number) {
-    this.ships.push(ship)
-
     ship.startCoord = [row, col]
 
+    const tempShipCoords: number[][] = []
     for (let i = 0; i < ship.span; i++) {
       let tempRow, tempCol
       if (ship.direction == directions.x) {
         tempCol = col + i
         tempRow = row
-      } else if (ship.direction == directions.y) {
-        tempRow = row + 1
-        tempCol = col
       } else {
-        throw Error
+        tempRow = row + i
+        tempCol = col
       }
-      ship.coords.push([tempRow, tempCol])
+
+      if (
+        tempRow == -1 ||
+        tempRow == 10 ||
+        tempCol == -1 ||
+        tempCol == 10 ||
+        this.board[tempRow][tempCol].isOccupied
+      ) {
+        return
+      }
+
+      tempShipCoords.push([tempRow, tempCol])
+    }
+
+    for (const tempShipCoord of tempShipCoords) {
+      const tempRow = tempShipCoord[0]
+      const tempCol = tempShipCoord[1]
+      ship.coords.push(tempShipCoord)
+      this.board[tempRow][tempCol].isShipPlaced = true
 
       for (let tempRow2 = tempRow - 1; tempRow2 <= tempRow + 1; tempRow2++) {
         for (let tempCol2 = tempCol - 1; tempCol2 <= tempCol + 1; tempCol2++) {
@@ -47,22 +65,13 @@ class Player {
             tempCol2 == 10
           ) {
             continue
-          } else {
-            this.board[tempRow2][tempCol2].isOccupied = true
           }
+          this.board[tempRow2][tempCol2].isOccupied = true
         }
       }
     }
-  }
 
-  getAutoShot() {
-    let randRow = Math.floor(Math.random() * 10)
-    let randCol = Math.floor(Math.random() * 10)
-    while (this.board[randRow][randCol].isShot == true) {
-      randRow = Math.floor(Math.random() * 10)
-      randCol = Math.floor(Math.random() * 10)
-    }
-    this.getShot(randRow, randCol)
+    ship.isPlaced = true
   }
 
   getShot(row: number, col: number) {

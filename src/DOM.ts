@@ -1,10 +1,10 @@
-class dom {
+class DOM {
   static placeShipHover() {}
 
-  static selectTile(row: number, col: number) {
+  static getTile(row: number, col: number) {
     const n = 10 * row + col + 1
     return <HTMLScriptElement>(
-      document.querySelector(".tile:nth-child(" + n + ")")
+      document.querySelector(".placementTile:nth-child(" + n + ")")
     )
   }
 
@@ -24,4 +24,4 @@ class dom {
   }
 }
 
-export { dom }
+export { DOM }

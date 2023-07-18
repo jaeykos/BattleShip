@@ -4,7 +4,7 @@ class Tile {
   isMiss = false
   isShot = false
   isOccupied = false
-  isdf = false
+  isShipPlaced = false
 
   constructor(row: number, col: number) {
     this.coord = [row, col]

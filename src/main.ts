@@ -1,29 +1,35 @@
 import { Player } from "./Player"
-import { Ship } from "./Ship"
-import { directions } from "./directions"
-import { dom } from "./dom"
+import { Bot } from "./Bot"
+import { Action } from "./Action"
 
-const p1: Player = new Player("player1")
+const player: Player = new Player()
+const bot: Bot = new Bot()
 
-const p1s1: Ship = new Ship()
-p1s1.setSpanAndDirection(2, directions.x)
-p1.placeShip(p1s1, 0, 0)
-p1.getShot(0, 0)
-p1.getShot(0, 1)
-p1.getAutoShot()
+bot.autoPlaceShips()
 
-console.log(p1)
+console.log(bot)
 
-const df = dom.selectTile(1, 1)
-df.style.backgroundColor = "red"
-
+let numShipPlaced = 0
 document.addEventListener("click", (e: MouseEvent) => {
   if (e.target instanceof HTMLElement) {
+    if (e.target.classList.contains("placeHoverLegal")) {
+      Action.placeNextShip(player, numShipPlaced, e.target)
+      numShipPlaced++
+      if (numShipPlaced == 5) {
+        Action.loadBattle()
+      }
+    }
+
+    if (e.target.id == "switchDirectionBtn") {
+      player.ships[numShipPlaced].switchDirection()
+    }
+  }
+})
+
+document.addEventListener("mouseover", (e: MouseEvent) => {
+  if (e.target instanceof HTMLElement) {
     if (e.target.className == "placementTile") {
-      e.target.style.backgroundColor = "red"
-      console.log(dom.getTileCoord(e.target))
-      dom.hoverShip()
-      dom.placeShip()
+      Action.displayHint(player, numShipPlaced, e.target)
     }
   }
 })

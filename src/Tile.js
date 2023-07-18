@@ -7,7 +7,7 @@ class Tile {
         this.isMiss = false;
         this.isShot = false;
         this.isOccupied = false;
-        this.isdf = false;
+        this.isShipPlaced = false;
         this.coord = [row, col];
     }
 }

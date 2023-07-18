@@ -1,40 +1,54 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Player = void 0;
+const Ship_1 = require("./Ship");
 const Tile_1 = require("./Tile");
 const directions_1 = require("./directions");
 class Player {
-    constructor(name) {
-        this.name = "";
+    constructor() {
         this.turn = false;
         this.board = [];
         this.ships = [];
         this.isLost = false;
-        this.name = name;
         for (let i = 0; i < 10; i++) {
             this.board.push([]);
             for (let j = 0; j < 10; j++) {
                 this.board[i].push(new Tile_1.Tile(i, j));
             }
         }
+        this.ships.push(new Ship_1.Ship(5));
+        this.ships.push(new Ship_1.Ship(4));
+        this.ships.push(new Ship_1.Ship(3));
+        this.ships.push(new Ship_1.Ship(3));
+        this.ships.push(new Ship_1.Ship(2));
     }
     placeShip(ship, row, col) {
-        this.ships.push(ship);
         ship.startCoord = [row, col];
+        const tempShipCoords = [];
         for (let i = 0; i < ship.span; i++) {
             let tempRow, tempCol;
             if (ship.direction == directions_1.directions.x) {
                 tempCol = col + i;
                 tempRow = row;
             }
-            else if (ship.direction == directions_1.directions.y) {
-                tempRow = row + 1;
+            else {
+                tempRow = row + i;
                 tempCol = col;
             }
-            else {
-                throw Error;
+            if (tempRow == -1 ||
+                tempRow == 10 ||
+                tempCol == -1 ||
+                tempCol == 10 ||
+                this.board[tempRow][tempCol].isOccupied) {
+                return;
             }
-            ship.coords.push([tempRow, tempCol]);
+            tempShipCoords.push([tempRow, tempCol]);
+        }
+        for (const tempShipCoord of tempShipCoords) {
+            const tempRow = tempShipCoord[0];
+            const tempCol = tempShipCoord[1];
+            ship.coords.push(tempShipCoord);
+            this.board[tempRow][tempCol].isShipPlaced = true;
             for (let tempRow2 = tempRow - 1; tempRow2 <= tempRow + 1; tempRow2++) {
                 for (let tempCol2 = tempCol - 1; tempCol2 <= tempCol + 1; tempCol2++) {
                     if (tempRow2 == -1 ||
@@ -43,21 +57,11 @@ class Player {
                         tempCol2 == 10) {
                         continue;
                     }
-                    else {
-                        this.board[tempRow2][tempCol2].isOccupied = true;
-                    }
+                    this.board[tempRow2][tempCol2].isOccupied = true;
                 }
             }
         }
-    }
-    getAutoShot() {
-        let randRow = Math.floor(Math.random() * 10);
-        let randCol = Math.floor(Math.random() * 10);
-        while (this.board[randRow][randCol].isShot == true) {
-            randRow = Math.floor(Math.random() * 10);
-            randCol = Math.floor(Math.random() * 10);
-        }
-        this.getShot(randRow, randCol);
+        ship.isPlaced = true;
     }
     getShot(row, col) {
         this.board[row][col].isShot = true;

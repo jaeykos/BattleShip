@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dom = void 0;
-class dom {
+exports.DOM = void 0;
+class DOM {
     static placeShipHover() { }
-    static selectTile(row, col) {
+    static getTile(row, col) {
         const n = 10 * row + col + 1;
-        return (document.querySelector(".tile:nth-child(" + n + ")"));
+        return (document.querySelector(".placementTile:nth-child(" + n + ")"));
     }
     static getTileCoord(tileElement) {
         const parent = tileElement.parentNode;
@@ -20,4 +20,4 @@ class dom {
         }
     }
 }
-exports.dom = dom;
+exports.DOM = DOM;
