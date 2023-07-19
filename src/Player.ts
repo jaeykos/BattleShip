@@ -3,12 +3,13 @@ import { Tile } from "./Tile"
 import { directions } from "./directions"
 
 class Player {
-  turn = false
+  name: string
   board: Tile[][] = []
   ships: Ship[] = []
   isLost = false
 
-  constructor() {
+  constructor(name: string) {
+    this.name = name
     for (let i = 0; i < 10; i++) {
       this.board.push([])
       for (let j = 0; j < 10; j++) {
@@ -102,6 +103,25 @@ class Player {
     if (tempIsMiss == true) {
       this.board[row][col].isMiss = true
     }
+  }
+
+  resetPlayer() {
+    this.board = []
+    for (let i = 0; i < 10; i++) {
+      this.board.push([])
+      for (let j = 0; j < 10; j++) {
+        this.board[i].push(new Tile(i, j))
+      }
+    }
+
+    this.ships = []
+    this.ships.push(new Ship(5))
+    this.ships.push(new Ship(4))
+    this.ships.push(new Ship(3))
+    this.ships.push(new Ship(3))
+    this.ships.push(new Ship(2))
+
+    this.isLost = false
   }
 }
 

@@ -5,11 +5,11 @@ const Ship_1 = require("./Ship");
 const Tile_1 = require("./Tile");
 const directions_1 = require("./directions");
 class Player {
-    constructor() {
-        this.turn = false;
+    constructor(name) {
         this.board = [];
         this.ships = [];
         this.isLost = false;
+        this.name = name;
         for (let i = 0; i < 10; i++) {
             this.board.push([]);
             for (let j = 0; j < 10; j++) {
@@ -86,6 +86,22 @@ class Player {
         if (tempIsMiss == true) {
             this.board[row][col].isMiss = true;
         }
+    }
+    resetPlayer() {
+        this.board = [];
+        for (let i = 0; i < 10; i++) {
+            this.board.push([]);
+            for (let j = 0; j < 10; j++) {
+                this.board[i].push(new Tile_1.Tile(i, j));
+            }
+        }
+        this.ships = [];
+        this.ships.push(new Ship_1.Ship(5));
+        this.ships.push(new Ship_1.Ship(4));
+        this.ships.push(new Ship_1.Ship(3));
+        this.ships.push(new Ship_1.Ship(3));
+        this.ships.push(new Ship_1.Ship(2));
+        this.isLost = false;
     }
 }
 exports.Player = Player;

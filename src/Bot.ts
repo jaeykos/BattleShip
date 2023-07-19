@@ -15,7 +15,6 @@ class Bot extends Player {
         shipToPlace.setDirection(randDirInd)
         this.placeShip(shipToPlace, randRow, randCol)
       } else {
-        console.log(this)
         numShipPlaced++
       }
     } while (numShipPlaced < 5)

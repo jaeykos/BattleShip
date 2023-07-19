@@ -16,7 +16,6 @@ class Bot extends Player_1.Player {
                 this.placeShip(shipToPlace, randRow, randCol);
             }
             else {
-                console.log(this);
                 numShipPlaced++;
             }
         } while (numShipPlaced < 5);
