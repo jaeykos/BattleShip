@@ -8,55 +8,51 @@
     <link rel="stylesheet" href="output.css" />
     <script src="main.js" defer></script>
   </head>
-  <body
-    class="bg-slate-600 h-full w-full text-slate-300 flex flex-col items-center"
-  >
-    <div
-      class="absolute justify-self-start text-5xl font-bold self-start mt-5 ml-5 mb-36"
-    >
+  <body class="bg-white font-mono h-full w-full flex flex-col items-center">
+    <div class="justify-self-start text-5xl font-bold self-start mt-5 ml-5">
       Battle Ship
     </div>
     <div
       id="startMainDiv"
       class="w-4/5 h-full flex flex-col items-center justify-center"
     >
-      <div class="w-1/2 text-2xl font-semibold">Place your ships</div>
+      <div class="w-1/2 text-2xl font-semibold">Prepare for battle!</div>
+      <div class="w-1/2 text-2xl font-semibold mb-3">place your ships</div>
       <div
         id="gameboardDiv"
-        class="grid grid-rows-10 grid-cols-10 w-1/2 aspect-square bg-slate-400"
+        class="grid grid-rows-10 grid-cols-10 w-1/2 aspect-square mt-2 border-solid border border-black"
       ></div>
       <button
         id="switchDirectionBtn"
-        class="mt-3 bg-slate-500 hover:bg-slate-600 text-slate-200 font-bold py-2 px-4 rounded"
+        class="mt-3 hover:bg-gray-300 border border-black font-bold py-2 px-4 rounded"
       >
         Switch direction
       </button>
     </div>
 
-    <div
-      id="battleMainDiv"
-      class="bg-slate-700 w-full h-full flex flex-col justify-center hidden"
-    >
+    <div id="battleMainDiv" class="w-full flex-col justify-center hidden">
       <div class="flex flex-row items-end justify-center">
         <div id="resultMessage" class="text-7xl font-semibold mx-10 hidden">
           PLAYER WON!
         </div>
         <button
           id="restartBtn"
-          class="ml-4 bg-slate-500 hover:bg-slate-600 text-slate-200 font-bold py-2 px-4 rounded"
+          class="ml-4 hover:bg-gray-300 font-bold py-2 px-4 rounded border border-black"
         >
           Restart
         </button>
       </div>
 
-      <div class="flex flex-row w-full h-1/2 items-start justify-around p-3">
+      <div
+        class="flex flex-row w-full h-1/2 items-start justify-around p-3 m-6"
+      >
         <div
           id="playerBoardDiv"
-          class="grid grid-rows-10 grid-cols-10 w-5/12 max-w-2xl aspect-square bg-slate-400"
+          class="grid grid-rows-10 grid-cols-10 w-5/12 max-w-2xl aspect-square border-solid border border-black"
         ></div>
         <div
           id="botBoardDiv"
-          class="grid grid-rows-10 grid-cols-10 w-5/12 max-w-2xl aspect-square bg-slate-400"
+          class="grid grid-rows-10 grid-cols-10 w-5/12 max-w-2xl aspect-square border-solid border border-black"
         ></div>
       </div>
     </div>
