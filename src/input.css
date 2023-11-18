@@ -44,3 +44,12 @@
 .botTile {
   border: solid 1px rgb(73, 67, 80);
 }
+
+.botTile:not(isMissed):not(isMissed):not(isSunk):hover {
+  background-color: rgb(90, 173, 224);
+}
+
+#botBoardDiv::before,
+#playerBoardDiv::before {
+  padding-top: 100%;
+}
